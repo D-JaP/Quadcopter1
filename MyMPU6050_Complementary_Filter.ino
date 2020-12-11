@@ -109,15 +109,21 @@ void loop(){
             String P = Sr2.substring(2);
 //            Serial.println(P.toFloat());
             p_tune = P.toFloat();
+            pid_p_gain_roll=p_tune;
+            pid_p_gain_pitch=p_tune;
         }
         if (Sr2.startsWith("i ")){
             String I = Sr2.substring(2);
             i_tune = I.toFloat();
+            pid_i_gain_roll=i_tune;
+            pid_i_gain_pitch=i_tune;
 //            Serial.println(I.toFloat());
         }
         if (Sr2.startsWith("d ")){
             String D = Sr2.substring(2);
             d_tune = D.toFloat();
+            pid_d_gain_roll=d_tune;
+            pid_d_gain_pitch=d_tune;
 //            Serial.println(D.toFloat());
         }
     }

@@ -19,8 +19,8 @@ static const uint8_t D10  = 1;
 #include <ESPAsyncTCP.h>
 #include <ESPAsyncWebServer.h>
 // Replace with your network credentials
-const char* ssid = "Anh Dung";
-const char* password = "0912578985";
+const char* ssid = "Dzung";
+const char* password = "DungMy218";
   
 const int output = 2;
 
