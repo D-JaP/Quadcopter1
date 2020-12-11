@@ -22,7 +22,7 @@ float GAcX, GAcY, GAcZ; // Convert accelerometer to gravity value
 float Cal_GyX,Cal_GyY,Cal_GyZ; // Pitch, Roll & Yaw of Gyroscope applied time factor
 float acc_pitch, acc_roll, acc_yaw; // Pitch, Roll & Yaw from Accelerometer
 float angle_pitch, angle_roll, angle_yaw; // Angle of Pitch, Roll, & Yaw
-float alpha = 0.996; // Complementary constant
+float alpha = 0.9996; // Complementary constant
 
 float pid_roll_setpoint=0, pid_pitch_setpoint=0, pid_yaw_setpoint;
 float gyro_pitch_input, gyro_roll_input, gyro_yaw_input;
@@ -35,7 +35,7 @@ float pid_p_gain_yaw=0, pid_i_gain_yaw, pid_d_gain_yaw; // pid yaw
 
 float pid_error_temp;
 float pid_i_mem_roll, pid_i_mem_pitch, pid_i_mem_yaw;
-int pid_max_roll=300, pid_max_pitch=300, pid_max_yaw=300;
+int pid_max_roll=400, pid_max_pitch=400, pid_max_yaw=400;
 float pid_output_roll, pid_output_pitch, pid_output_yaw;
 float pid_last_roll_d_error,pid_last_pitch_d_error,pid_last_yaw_d_error;
 float esc1, esc2, esc3, esc4;
@@ -158,11 +158,7 @@ void loop(){
   ESC2.writeMicroseconds(int(esc2));
   ESC3.writeMicroseconds(int(esc3));
   ESC4.writeMicroseconds(int(esc4));
-  Serial.println("--------------------");
-  Serial.println(int(esc1));
-  Serial.println(int(esc2));
-  Serial.println(int(esc3));
-  Serial.println(int(esc4));
+//  Serial.println("-------------xx
 //  Serial.println("--------------------");
 //  Serial.println(p_tune);
 //  Serial.println(i_tune*1000);
