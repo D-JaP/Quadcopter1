@@ -27,7 +27,7 @@ float alpha = 0.996; // Complementary constant
 float pid_roll_setpoint=0, pid_pitch_setpoint=0, pid_yaw_setpoint;
 float gyro_pitch_input, gyro_roll_input, gyro_yaw_input;
 
-float p_tune=5, d_tune=10 , i_tune=0.0001;
+float p_tune=2, d_tune=10 , i_tune=0.0001;
 float pid_p_gain_roll=p_tune, pid_i_gain_roll=i_tune, pid_d_gain_roll=d_tune; //pid roll
 float pid_p_gain_pitch=p_tune, pid_i_gain_pitch=i_tune, pid_d_gain_pitch=d_tune; //pid pitch
 float pid_p_gain_yaw=0, pid_i_gain_yaw, pid_d_gain_yaw; // pid yaw
@@ -127,10 +127,10 @@ void loop(){
 //            Serial.println(D.toFloat());
         }
     }
-      
-  calculate_pid();
   gyro_pitch_input = angle_pitch;
-  gyro_roll_input = angle_roll;
+  gyro_roll_input = angle_roll;    
+  calculate_pid();
+
 //
   if (throttle > 1700) {throttle=1700;}
   
@@ -158,11 +158,11 @@ void loop(){
   ESC2.writeMicroseconds(int(esc2));
   ESC3.writeMicroseconds(int(esc3));
   ESC4.writeMicroseconds(int(esc4));
-//  Serial.println("--------------------");
-//  Serial.println(int(esc1));
-//  Serial.println(int(esc2));
-//  Serial.println(int(esc3));
-//  Serial.println(int(esc4));
+  Serial.println("--------------------");
+  Serial.println(int(esc1));
+  Serial.println(int(esc2));
+  Serial.println(int(esc3));
+  Serial.println(int(esc4));
 //  Serial.println("--------------------");
 //  Serial.println(p_tune);
 //  Serial.println(i_tune*1000);
@@ -176,7 +176,7 @@ void loop(){
 //  delay(500);
 //  }
 blink_pc13(c,50);c++;
-Serial.println(micros() - sampling_timer);
+//Serial.println(micros() - sampling_timer);
   
   // Sampling Timer
   while(micros() - sampling_timer < 4000); //
