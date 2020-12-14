@@ -27,7 +27,7 @@ float alpha = 0.9996; // Complementary constant
 float pid_roll_setpoint=0, pid_pitch_setpoint=0, pid_yaw_setpoint;
 float gyro_pitch_input, gyro_roll_input, gyro_yaw_input;
 
-float p_tune=2, d_tune=10 , i_tune=0.0001;
+float p_tune=3, d_tune=25 , i_tune=0.001;
 float pid_p_gain_roll=p_tune, pid_i_gain_roll=i_tune, pid_d_gain_roll=d_tune; //pid roll
 float pid_p_gain_pitch=p_tune, pid_i_gain_pitch=i_tune, pid_d_gain_pitch=d_tune; //pid pitch
 float pid_p_gain_yaw=0, pid_i_gain_yaw, pid_d_gain_yaw; // pid yaw
@@ -46,7 +46,7 @@ String Sr2;
 void setup(){
   Serial.begin(115200);
   Serial2.begin(115200);
-  Serial2.setTimeout(50);
+  Serial2.setTimeout(1);
 //  Blynk.begin(auth, ssid, pass);
   Serial.println("Attach esc.....");
   Wire2.begin();
@@ -171,9 +171,10 @@ void loop(){
 //  digitalWrite(D4, LOW);
 //  delay(500);
 //  }
-blink_pc13(c,50);c++;
+//blink_pc13(c,50);c++;
 //Serial.println(micros() - sampling_timer);
-  
+  if (micros() - sampling_timer>2000){
+    Serial.println(micros() - sampling_timer);}
   // Sampling Timer
   while(micros() - sampling_timer < 4000); //
   sampling_timer = micros(); //Reset the sampling timer  
