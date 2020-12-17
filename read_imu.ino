@@ -67,8 +67,10 @@ void read_imu(){
 //  Serial.print(" | acc_yaw = "); Serial.println(acc_yaw);
 //  int timet = micros();
   // Print value of Pitch, Roll & Yaw reflected Complementary Filter
-//  Serial.print(" | angle_pitch = "); Serial.print(int(angle_pitch));
-//  Serial.print(" | angle_roll = "); Serial.print(int(angle_roll));
+//  Serial.print(" | angle_pitch = "); 
+//  Serial.print((angle_pitch));Serial.print(",");
+//  Serial.print(" | angle_roll = ");
+//  Serial.println((angle_roll));
 //  Serial.print(" | angle_yaw = "); Serial.println(int(angle_yaw));
 
 //  Serial.print(" | Cal_GyX = "); Serial.print(Cal_GyX);

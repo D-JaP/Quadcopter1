@@ -66,10 +66,31 @@ const char index_html[] PROGMEM = R"rawliteral(
     D: <input type="text" name="input3">
     <input type="submit" value="Submit">
   </form>
+  <p><span id="textSliderValue_roll">%SLIDERVALUE_ROLL%</span></p>
+  <p><input type="range" onchange="updateSliderROLL(this)" id="ROLL_Slider" min="-30" max="30" value="%SLIDERVALUE_ROLL%" step="1" class="slider"></p>
+  
+  <p><span id="textSliderValue_pitch">%SLIDERVALUE_PITCH%</span></p>
+  <p><input type="range" onchange="updateSliderPITCH(this)" id="PITCH_Slider" min="-30" max="30" value="%SLIDERVALUE_PITCH%" step="1" class="slider"></p>
 <script>
 function updateSliderPWM(element) {
   var sliderValue = document.getElementById("pwmSlider").value;
   document.getElementById("textSliderValue").innerHTML = sliderValue;
+  console.log(sliderValue);
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", "/slider?value="+sliderValue, true);
+  xhr.send();
+}
+function updateSliderROLL(element) {
+  var sliderValue = document.getElementById("ROLL_Slider").value;
+  document.getElementById("textSliderValue_roll").innerHTML = sliderValue;
+  console.log(sliderValue);
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", "/slider?value="+sliderValue, true);
+  xhr.send();
+}
+function updateSliderPITCH(element) {
+  var sliderValue = document.getElementById("PITCH_Slider").value;
+  document.getElementById("textSliderValue_pitch").innerHTML = sliderValue;
   console.log(sliderValue);
   var xhr = new XMLHttpRequest();
   xhr.open("GET", "/slider?value="+sliderValue, true);

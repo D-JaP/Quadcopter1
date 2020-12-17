@@ -22,12 +22,12 @@ float GAcX, GAcY, GAcZ; // Convert accelerometer to gravity value
 float Cal_GyX,Cal_GyY,Cal_GyZ; // Pitch, Roll & Yaw of Gyroscope applied time factor
 float acc_pitch, acc_roll, acc_yaw; // Pitch, Roll & Yaw from Accelerometer
 float angle_pitch, angle_roll, angle_yaw; // Angle of Pitch, Roll, & Yaw
-float alpha = 0.9996; // Complementary constant
+float alpha = 0.996; // Complementary constant
 
 float pid_roll_setpoint=0, pid_pitch_setpoint=0, pid_yaw_setpoint;
 float gyro_pitch_input, gyro_roll_input, gyro_yaw_input;
 
-float p_tune=3, d_tune=25 , i_tune=0.001;
+float p_tune=2, d_tune=75 , i_tune=0.0001;
 float pid_p_gain_roll=p_tune, pid_i_gain_roll=i_tune, pid_d_gain_roll=d_tune; //pid roll
 float pid_p_gain_pitch=p_tune, pid_i_gain_pitch=i_tune, pid_d_gain_pitch=d_tune; //pid pitch
 float pid_p_gain_yaw=0, pid_i_gain_yaw, pid_d_gain_yaw; // pid yaw
@@ -162,7 +162,8 @@ void loop(){
 //  Serial.println("--------------------");
 //  Serial.println(p_tune);
 //  Serial.println(i_tune*1000);
-//  Serial.println(d_tune);
+//  Serial.println(int(esc1));
+//  Serial.print(",");Serial.print(int(esc2));Serial.print(",");Serial.print(int(esc3));Serial.print(",");Serial.println(int(esc4));
 
   
 //if(int(angle_pitch) >20) {
@@ -174,7 +175,8 @@ void loop(){
 //blink_pc13(c,50);c++;
 //Serial.println(micros() - sampling_timer);
   if (micros() - sampling_timer>2000){
-    Serial.println(micros() - sampling_timer);}
+//    Serial.println(micros() - sampling_timer);
+}
   // Sampling Timer
   while(micros() - sampling_timer < 4000); //
   sampling_timer = micros(); //Reset the sampling timer  
