@@ -27,7 +27,7 @@ float alpha = 0.996; // Complementary constant
 float pid_roll_setpoint=0, pid_pitch_setpoint=0, pid_yaw_setpoint;
 float gyro_pitch_input, gyro_roll_input, gyro_yaw_input;
 
-float p_tune=2, d_tune=75 , i_tune=0.0001;
+float p_tune=1, d_tune=50 , i_tune=0.0001;
 float pid_p_gain_roll=p_tune, pid_i_gain_roll=i_tune, pid_d_gain_roll=d_tune; //pid roll
 float pid_p_gain_pitch=p_tune, pid_i_gain_pitch=i_tune, pid_d_gain_pitch=d_tune; //pid pitch
 float pid_p_gain_yaw=0, pid_i_gain_yaw, pid_d_gain_yaw; // pid yaw
@@ -125,6 +125,18 @@ void loop(){
             pid_d_gain_roll=d_tune;
             pid_d_gain_pitch=d_tune;
 //            Serial.println(D.toFloat());
+        }
+        if (Sr2.startsWith("R ")){
+            String Roll = Sr2.substring(2);
+            roll_tune = Roll.toFloat();
+            pid_roll_setpoint = roll_tune;
+
+        }
+        if (Sr2.startsWith("P ")){
+            String Pitch = Sr2.substring(2);
+            pitch_tune = Pitch.toFloat();
+            pid_pitch_setpoint = pitch_tune;
+
         }
     }
   gyro_pitch_input = angle_pitch;

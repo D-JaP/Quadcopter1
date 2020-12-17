@@ -25,11 +25,16 @@ const char* password = "DungMy218";
 const int output = 2;
 
 String sliderValue = "0";
+String sliderValue_r = "0";
+String sliderValue_p = "0";
 
 const char* PARAM_INPUT = "value";
 const char* PARAM_INPUT_1 = "input1";
 const char* PARAM_INPUT_2 = "input2";
 const char* PARAM_INPUT_3 = "input3";
+const char* PARAM_INPUT_r = "input_r";
+const char* PARAM_INPUT_p = "input_p";
+
 // Create AsyncWebServer object on port 80
 AsyncWebServer server(80);
 
@@ -81,19 +86,19 @@ function updateSliderPWM(element) {
   xhr.send();
 }
 function updateSliderROLL(element) {
-  var sliderValue = document.getElementById("ROLL_Slider").value;
-  document.getElementById("textSliderValue_roll").innerHTML = sliderValue;
-  console.log(sliderValue);
+  var sliderValue_r = document.getElementById("ROLL_Slider").value;
+  document.getElementById("textSliderValue_roll").innerHTML = sliderValue_r;
+  console.log(sliderValue_r);
   var xhr = new XMLHttpRequest();
-  xhr.open("GET", "/slider?value="+sliderValue, true);
+  xhr.open("GET", "/slider?input_r="+sliderValue_r, true);
   xhr.send();
 }
 function updateSliderPITCH(element) {
-  var sliderValue = document.getElementById("PITCH_Slider").value;
-  document.getElementById("textSliderValue_pitch").innerHTML = sliderValue;
-  console.log(sliderValue);
+  var sliderValue_p = document.getElementById("PITCH_Slider").value;
+  document.getElementById("textSliderValue_pitch").innerHTML = sliderValue_p;
+  console.log(sliderValue_p);
   var xhr = new XMLHttpRequest();
-  xhr.open("GET", "/slider?value="+sliderValue, true);
+  xhr.open("GET", "/slider?input_p="+sliderValue_p, true);
   xhr.send();
 }
 </script>
@@ -146,6 +151,38 @@ void setup(){
     Serial.println("tt "+inputMessage);
     request->send(200, "text/plain", "OK");
   });
+//roll andle
+  server.on("/slider", HTTP_GET, [] (AsyncWebServerRequest *request) {
+    String inputMessage;
+    // GET input1 value on <ESP_IP>/slider?value=<inputMessage>
+    if (request->hasParam(PARAM_INPUT_r)) {
+      inputMessage = request->getParam(PARAM_INPUT_r)->value();
+      sliderValue_r = inputMessage;
+      analogWrite(output, sliderValue_r.toInt());
+    }
+    else {
+      inputMessage = "No message sent";
+    }
+    Serial.println("R "+inputMessage);
+    request->send(200, "text/plain", "OK");
+  });
+
+  //roll andle
+  server.on("/slider", HTTP_GET, [] (AsyncWebServerRequest *request) {
+    String inputMessage;
+    // GET input1 value on <ESP_IP>/slider?value=<inputMessage>
+    if (request->hasParam(PARAM_INPUT_p)) {
+      inputMessage = request->getParam(PARAM_INPUT_p)->value();
+      sliderValue_p = inputMessage;
+      analogWrite(output, sliderValue_p.toInt());
+    }
+    else {
+      inputMessage = "No message sent";
+    }
+    Serial.println("P "+inputMessage);
+    request->send(200, "text/plain", "OK");
+  });
+  
   server.on("/get", HTTP_GET, [] (AsyncWebServerRequest *request) {
     String inputMessage;
     String inputParam;
