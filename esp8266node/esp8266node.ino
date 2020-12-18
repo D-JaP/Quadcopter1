@@ -32,6 +32,9 @@ const char* PARAM_INPUT = "value";
 const char* PARAM_INPUT_1 = "input1";
 const char* PARAM_INPUT_2 = "input2";
 const char* PARAM_INPUT_3 = "input3";
+const char* PARAM_INPUT_RT = "input_rt";
+const char* PARAM_INPUT_PT = "input_pt";
+
 const char* PARAM_INPUT_r = "value_r";
 const char* PARAM_INPUT_p = "value_p";
 
@@ -76,6 +79,16 @@ const char index_html[] PROGMEM = R"rawliteral(
   
   <p><span id="textSliderValue_pitch">%SLIDERVALUE_PITCH%</span></p>
   <p><input type="range" onchange="updateSliderPITCH(this)" id="PITCH_Slider" min="-30" max="30" value="%SLIDERVALUE_PITCH%" step="1" class="slider"></p>
+
+  <form action="/get">
+    ROLL: <input type="text" name="input_rt">
+    <input type="submit" value="Submit">
+  </form><br>
+  <form action="/get">
+    PITCH: <input type="text" name="input_pt">
+    <input type="submit" value="Submit">
+  </form>
+
 <script>
 function updateSliderPWM(element) {
   var sliderValue = document.getElementById("pwmSlider").value;
@@ -101,6 +114,7 @@ function updateSliderPITCH(element) {
   xhr.open("GET", "/slide_r2?value_p="+sliderValue_p, true);
   xhr.send();
 }
+
 </script>
 </body>
 </html>
@@ -204,7 +218,16 @@ void setup(){
 //      inputParam = PARAM_INPUT_3;
         Serial.println("d "+inputMessage);
     }
-    
+    else if (request->hasParam(PARAM_INPUT_RT)) {
+      inputMessage = request->getParam(PARAM_INPUT_RT)->value();
+//      inputParam = PARAM_INPUT_4;
+        Serial.println("rt "+inputMessage);
+    }
+    else if (request->hasParam(PARAM_INPUT_PT)) {
+      inputMessage = request->getParam(PARAM_INPUT_PT)->value();
+//      inputParam = PARAM_INPUT_5;
+        Serial.println("pt "+inputMessage);
+    }
       request->redirect("/");
   });
   // Start server
